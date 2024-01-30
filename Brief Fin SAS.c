@@ -3,19 +3,19 @@
 #include <string.h>
 
 //structure pour stocker les informations d'une tache
-struct Tache{
+struct tache{
     char description[100];
     char date[20];
     int priorite;
 };
 
 //tableau pour stocker les taches
-    struct Tache liste[100];
+    struct tache liste[100];
     int tachenombre = 0;
 
 //fonction pour ajouter une tache
 void ajouter(){
-    struct Tache nvtache;
+    struct tache nvtache;
     
     printf("Description de la tache : ");
     scanf(" %[^\n]",&nvtache.description);
@@ -75,6 +75,26 @@ void modiffier(){
     }
 }
 
+//fonction pour suprimer une tache
+void suprimer(){
+	int tacheindice,i;
+	
+	afficher();
+	
+	printf("Quelle tache voulez vous suprimer : ");
+	scanf("%d",&tacheindice);
+	
+	if(tacheindice>=1 && tacheindice<=tachenombre){
+		for(i=tacheindice-1;i<tachenombre-1;i++){
+			liste[i] = liste[i+1];
+		}
+		tachenombre--;
+		printf("Tache suprimer avec succes. \n");
+	}else{
+		printf("Numero de tache invalide. \n");
+	}
+}
+
 int main()
 {
     int choix;
@@ -83,6 +103,7 @@ int main()
         printf("1.Ajouter un tache. \n");
         printf("2.Afficher la liste des taches. \n");
         printf("3.Modiffier une tache. \n");
+        printf("4.Suprimer une tache. \n");
         printf("0.Quitter. \n");
         printf("Votre choix :");
         scanf("%d",&choix);
@@ -93,6 +114,8 @@ int main()
                         break;
                 case 3 : modiffier();
                         break;
+                case 4 : suprimer();
+                        break;        
                 case 0 : printf("Le programme est termine");
                         break;
                 default : printf("Choix invalide ,Veuillez ressayer");
